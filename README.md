@@ -1,8 +1,8 @@
-# mqtt-over-websocket-server
+# redis-over-websocket-server
 
 #### 介绍
 
-基于 websocket 的 mqtt 协议服务器
+基于 websocket 的 redis 发布订阅 协议服务器
 
 此服务 在 localhost 上监听 2000 端口
 
