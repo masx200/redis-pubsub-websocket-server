@@ -12,12 +12,22 @@
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.安装依赖
+
+```powershell
+yarn install
+```
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.编译
+
+```powershell
+yarn build
+```
+
+2. 启动服务器
+
+```powershell
+yarn start
+```
