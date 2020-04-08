@@ -12,7 +12,9 @@
 
 #### 安装教程
 
-1.安装依赖
+1.需要先安装 redis
+
+2.安装依赖
 
 ```powershell
 yarn install
