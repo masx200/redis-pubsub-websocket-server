@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "pubsub",
+            "script": "./dist/index.cjs",
+
+            "cwd": "./",
+            "interpreter": "node",
+            "interpreter_args": [],
+            "exec_mode": "cluster",
+            "instances": "max"
+        }
+    ]
+}

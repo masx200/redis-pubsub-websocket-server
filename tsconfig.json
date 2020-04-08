@@ -1,0 +1,28 @@
+{
+    "include": ["src/*.ts", "**/*.ts"],
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "esnext",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "rootDir": "./src",
+        "baseUrl": ".",
+        "allowUnreachableCode": false,
+        "allowSyntheticDefaultImports": true,
+        "alwaysStrict": true,
+        "noImplicitThis": true,
+        "sourceMap": false,
+        "moduleResolution": "node",
+        "pretty": true,
+        "resolveJsonModule": true,
+        "declaration": false,
+        "noUnusedLocals": true,
+        "checkJs": false,
+        "importHelpers": true,
+        "removeComments": true,
+        "allowJs": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    }
+}
