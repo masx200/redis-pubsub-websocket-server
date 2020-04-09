@@ -15,6 +15,7 @@ const beautifyterserplugin = terser({
 export default [
     {
         external: [
+            "ws",
             "socket.io",
             "ioredis",
             "morgan",

@@ -1,15 +1,20 @@
-const s = document.createElement("script");
-s.src = "https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js";
-document.head.appendChild(s);
-s.onload = () => {
-    start();
-};
-function start() {
-    const socket = io(location.origin, {
-        path: "/websocket",
+{
+    const path = "/websocket";
+    const origin = location.origin;
+    const url = new URL(path, origin);
+    url.protocol = "ws:";
+    const ws = new WebSocket(url.href);
+    console.log(ws);
+    ws.addEventListener("open", (e) => {
+        console.log(e);
     });
-    console.log(socket);
-    socket.on("connect", () => {
-        console.log("connect");
+    ws.addEventListener("close", (e) => {
+        console.log(e);
+    });
+    ws.addEventListener("error", (e) => {
+        console.log(e);
+    });
+    ws.addEventListener("message", (e) => {
+        console.log(e);
     });
 }
