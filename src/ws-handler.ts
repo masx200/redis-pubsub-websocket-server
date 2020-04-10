@@ -19,6 +19,7 @@ const handle_ws = (socket: ws): void => {
         console.log("websocket received: ", message);
         const obj = JSON.parse(String(message));
         assert(typeof obj == "object");
+        assert(!Array.isArray(obj));
         if (obj?.type === "subscribe") {
             subscribe(obj);
         } else if (obj?.type === "unsubscribe") {
