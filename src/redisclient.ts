@@ -2,6 +2,7 @@ import ws from "ws";
 import ioredis from "ioredis";
 import { listensocketmap } from "./listensocketmap";
 export const redisclient = new ioredis({ port: 6379, host: "localhost" });
+console.log(redisclient);
 redisclient.ping().then((pong) => console.log("ping", pong));
 redisclient.on("message", async function (channel, message) {
     console.log("Receive message %s from channel %s", message, channel);
