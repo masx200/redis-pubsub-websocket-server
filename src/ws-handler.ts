@@ -9,7 +9,6 @@ const handle_ws = async (socket: ws) => {
     });
     socket.on("error", async (error) => {
         console.log("websocket error", error);
-        // console.log(error);
     });
     socket.on("message", async (message) => {
         console.log("websocket received: ", message);
