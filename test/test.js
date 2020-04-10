@@ -1,8 +1,15 @@
-{
-    const path = "/websocket";
-    const origin = location.origin;
+/**
+ * @param {{ path?: "/websocket"; protocol?: "ws:"; origin?: string; }} opt
+ */
+function createws(opt = {}) {
+    const {
+        path = "/websocket",
+        protocol = "ws:",
+        origin = location.origin || "http://localhost",
+    } = opt;
+
     const url = new URL(path, origin);
-    url.protocol = "ws:";
+    url.protocol = protocol;
     const ws = new WebSocket(url.href);
     console.log(ws);
     ws.addEventListener("open", (e) => {
@@ -17,4 +24,6 @@
     ws.addEventListener("message", (e) => {
         console.log(e);
     });
+    return ws;
 }
+export { createws };
