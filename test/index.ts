@@ -5,6 +5,6 @@ const rws = createws({
     path: "/websocket",
     protocol: "ws:",
 });
-Reflect.set(window, "createws", createws);
+
 Reflect.set(window, "rws", rws);
 console.log(rws);
