@@ -5,13 +5,13 @@ function createws(opt = {}) {
     const {
         path = "/websocket",
         protocol = "ws:",
-        origin = location.origin || "http://localhost",
+        origin = "http://localhost",
     } = opt;
 
     const url = new URL(path, origin);
     url.protocol = protocol;
     const ws = new WebSocket(url.href);
-    console.log(ws);
+    // console.log(ws);
     ws.addEventListener("open", (e) => {
         console.log(e);
     });
