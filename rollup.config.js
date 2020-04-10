@@ -68,4 +68,24 @@ export default [
             typescript({ sourceMap: false }),
         ],
     },
+    {
+        external: [],
+        input: "./test/index.ts",
+        output: [
+            {
+                format: "iife",
+
+                file: "./dist/test.js",
+
+                sourcemap: false,
+            },
+        ],
+        plugins: [
+            beautifyterserplugin,
+            json(),
+            resolve({ preferBuiltins: true }),
+            commonjs(),
+            typescript({ sourceMap: false }),
+        ],
+    },
 ];

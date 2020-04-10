@@ -6,7 +6,7 @@
         "strict": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "rootDir": "./src",
+        "rootDir": "./",
         "baseUrl": ".",
         "allowUnreachableCode": false,
         "allowSyntheticDefaultImports": true,
