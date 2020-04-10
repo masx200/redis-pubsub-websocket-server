@@ -1,10 +1,10 @@
 import ReconnectingWebSocket from "reconnecting-websocket";
-function createws(
+function createwebsocket(
     opt: {
         port?: number | undefined;
-        host?: "localhost" | undefined;
-        path?: "/websocket" | undefined;
-        protocol?: "ws:" | undefined;
+        host?: string| undefined;
+        path?: string | undefined;
+        protocol?: "ws:"|"wss:" | undefined;
     } = {}
 ): ReconnectingWebSocket {
     const {
@@ -35,4 +35,4 @@ function createws(
     });
     return ws;
 }
-export { createws };
+export default createwebsocket 
