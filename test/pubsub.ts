@@ -1,5 +1,5 @@
-import { createws } from "./createws";
-function pubsub(opt: {
+import  createwebsocket  from "./createwebsocket";
+function createpubsub(opt: {
         port?: number | undefined;
         host?: string| undefined;
         path?: string | undefined;
@@ -14,7 +14,7 @@ function pubsub(opt: {
     protocol="ws:",
 	
 	}=opt
-const socket = createws({
+const socket = createwebsocket({
     port,
     host,
     path,
@@ -43,10 +43,5 @@ socket.addEventListener("message", (e) => {
 return {socket,subscribe,unsubscribe,channels:channelset}
 }
 
-export{pubsub}
-//Reflect.set(window, "socket", socket);
+export default createpubsub
 
-//Reflect.set(window, "channelset", channelset);
-//console.log(socket);
-//Reflect.set(window, "subscribe", subscribe);
-//Reflect.set(window, "unsubscribe", unsubscribe);
