@@ -1,27 +1,35 @@
 import ws from "ws";
-
+import { subscribe, unsubscribe } from "./sub";
+import assert from "assert";
 const handle_ws = (socket: ws): void => {
     // console.log(socket);
 
-    socket.on("open", () => {
+    socket.on("open", async () => {
         console.log("websocket connected");
         // socket.send("test");
         // setTimeout(function timeout() {
         //     socket.send(Date.now());
         // }, 500);
     });
-    socket.on("error", (error) => {
+    socket.on("error", async (error) => {
         console.log("websocket error", error);
         // console.log(error);
     });
-    socket.on("message", (message) => {
+    socket.on("message", async (message) => {
         console.log("websocket received: ", message);
+        const obj = JSON.parse(String(message));
+        assert(typeof obj == "object");
+        if (obj?.type === "subscribe") {
+            subscribe(obj);
+        } else if (obj?.type === "unsubscribe") {
+            unsubscribe(obj);
+        }
         // socket.send(Date.now());
         // setTimeout(function timeout() {
         //     socket.send(Date.now());
         // }, 500);
     });
-    socket.on("close", (code, reason) => {
+    socket.on("close", async (code, reason) => {
         console.log("websocket closed", code, reason);
     });
     socket.emit("open");
