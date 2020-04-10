@@ -4,5 +4,5 @@ export async function unsubscribe(
 
     channel: string
 ) {
-    console.log(socket, channel);
+    console.log("unsubscribe", channel);
 }

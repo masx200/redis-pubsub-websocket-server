@@ -11,9 +11,11 @@ export default async function on_message(message: string, socket: ws) {
     assert(obj instanceof Object);
     if (obj?.type === "subscribe") {
         assert(check.like(obj, { type: "subscribe", channel: "string" }));
-        subscribe(socket, obj);
+        let channel = Reflect.get(obj, "channel");
+        subscribe(socket, channel);
     } else if (obj?.type === "unsubscribe") {
         assert(check.like(obj, { type: "unsubscribe", channel: "string" }));
-        unsubscribe(socket, obj);
+        let channel = Reflect.get(obj, "channel");
+        unsubscribe(socket, channel);
     }
 }

@@ -2,7 +2,7 @@ import ws from "ws";
 import { addsocketlistener } from "./addsocketlistener";
 import { redisclient } from "./redisclient";
 export async function subscribe(socket: ws, channel: string) {
-    console.log(socket, channel);
+    console.log("subscribe", channel);
     addsocketlistener(channel, socket);
 
     await redisclient
