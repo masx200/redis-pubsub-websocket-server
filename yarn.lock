@@ -167,6 +167,11 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/check-types@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.npmjs.org/@types/check-types/-/check-types-7.3.1.tgz#81c2eb6b9866655b149a5eb490a758266b841eb6"
+  integrity sha512-ngdPEVdU7HMFoDWBibpBB2T59WKhn832O19s1xWhbbPVC/FoMJSetj/8V68p6L28oeU2wPSVfeP4GX0AmxLKUw==
+
 "@types/connect@*":
   version "3.4.33"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.33.tgz#31610c901eca573b8713c3330abc6e6b9f588546"
@@ -494,6 +499,11 @@ charm@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/charm/-/charm-0.1.2.tgz#06c21eed1a1b06aeb67553cdc53e23274bac2296"
   integrity sha1-BsIe7RobBq62dVPNxT4jJ0usIpY=
+
+check-types@^11.1.2:
+  version "11.1.2"
+  resolved "https://registry.npmjs.org/check-types/-/check-types-11.1.2.tgz#86a7c12bf5539f6324eb0e70ca8896c0e38f3e2f"
+  integrity sha512-tzWzvgePgLORb9/3a0YenggReLKAIb2owL03H2Xdoe5pKcUyWRSEQ8xfCar8t2SIAuEDwtmx2da1YB52YuHQMQ==
 
 chokidar@^3.2.0:
   version "3.3.1"

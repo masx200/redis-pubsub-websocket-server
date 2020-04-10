@@ -1,3 +1,4 @@
+import check from "check-types";
 import ws from "ws";
 import { subscribe, unsubscribe } from "./sub";
 import assert from "assert";
@@ -21,8 +22,10 @@ const handle_ws = async (socket: ws) => {
         assert(typeof obj == "object");
         assert(!Array.isArray(obj));
         if (obj?.type === "subscribe") {
+            assert(check.like(obj, { type: "subscribe", channel: "string" }));
             subscribe(obj);
         } else if (obj?.type === "unsubscribe") {
+            assert(check.like(obj, { type: "unsubscribe", channel: "string" }));
             unsubscribe(obj);
         }
         // socket.send(Date.now());
