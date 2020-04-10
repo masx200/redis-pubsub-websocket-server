@@ -6,5 +6,5 @@ const rws = createws({
     protocol: "ws:",
 });
 
-Reflect.set(window, "rws", rws);
+Reflect.set(window, "socket", rws);
 console.log(rws);
