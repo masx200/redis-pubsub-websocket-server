@@ -1,6 +1,7 @@
 import ws from "ws";
 import on_message from "./on-message";
 import on_close from "./on-close";
+
 const handle_ws = async (socket: ws) => {
     socket.on("open", async () => {
         console.log("websocket connected");
@@ -15,6 +16,20 @@ const handle_ws = async (socket: ws) => {
         } catch (error) {
             // socket.emit("error", error);
             console.error(error);
+            if(error instanceof Error){
+                                
+                                                    
+                                                                            
+                                                                                                        
+                                                                                                                                        
+                                                                                                                                                                            
+                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                   
+
+            const res=handleerror(error)                                                                                                                                                                                                                       
+          
+                       
+                                 }
             // https://developer.mozilla.org/zh-CN/docs/Web/API/CloseEvent
             /* 1008	Policy Violation	由于收到不符合约定的数据而断开连接. 这是一个通用状态码, 用于不适合使用 1003 和 1009 状态码的场景. */
             /* reason 可选
