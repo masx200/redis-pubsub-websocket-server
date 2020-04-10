@@ -9,8 +9,8 @@ redisclient.on("message", async function (channel, message) {
     let objmsg = message;
     try {
         objmsg = JSON.parse(message);
-    } catch (error) {
-        console.error(error);
+    } catch  {
+        
     }
     const listeners = listensocketmap.get(channel);
     const data = { type: "message", channel, message: objmsg };
