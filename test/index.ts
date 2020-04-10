@@ -5,15 +5,17 @@ const socket = createws({
     path: "/websocket",
     protocol: "ws:",
 });
-const channels = ["test", "event-127.0.0.1-5000"];
+const channelset = new Set(["test", "event-127.0.0.1-5000"]);
 function subscribe(channel: string) {
+    channelset.add(channel);
     socket.send(JSON.stringify({ type: "subscribe", channel }));
 }
 function unsubscribe(channel: string) {
+    channelset.delete(channel);
     socket.send(JSON.stringify({ type: "unsubscribe", channel }));
 }
 socket.addEventListener("open", (e) => {
-    channels.forEach((channel) => {
+    channelset.forEach((channel) => {
         subscribe(channel);
     });
 });
@@ -24,7 +26,7 @@ socket.addEventListener("message", (e) => {
 
 Reflect.set(window, "socket", socket);
 
-Reflect.set(window, "channels", channels);
+Reflect.set(window, "channelset", channelset);
 console.log(socket);
 Reflect.set(window, "subscribe", subscribe);
 Reflect.set(window, "unsubscribe", unsubscribe);

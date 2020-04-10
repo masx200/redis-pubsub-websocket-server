@@ -7,12 +7,13 @@ export async function unsubscribe(
 
     channel: string
 ) {
+    
     console.log("unsubscribe", channel);
     await removesocketlistener(channel, socket);
-    const listeners = listensocketmap.get(name);
+    const listeners = listensocketmap.get(channel);
     if (listeners && listeners.size === 0) {
         await redisclient
-            .unsubscribe(name)
-            .then(() => console.log("redis unsubscribe ", name));
+            .unsubscribe(channel)
+            .then(() => console.log("redis unsubscribe ", channel));
     }
 }

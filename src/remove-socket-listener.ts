@@ -1,14 +1,14 @@
 import ws from "ws";
 import { listensocketmap } from "./listensocketmap";
 
-export async function removesocketlistener(name: string, socket: ws) {
-    const haschannel = listensocketmap.get(name);
+export async function removesocketlistener(channel: string, socket: ws) {
+    const haschannel = listensocketmap.get(channel);
 
     const listeners =
         haschannel ??
         (() => {
             let listenset = new Set<ws>();
-            listensocketmap.set(name, listenset);
+            listensocketmap.set(channel, listenset);
             return listenset;
         })();
 
