@@ -21,12 +21,13 @@ const handle_ws = async (socket: ws) => {
         const obj = JSON.parse(String(message));
         assert(typeof obj == "object");
         assert(!Array.isArray(obj));
+        assert(obj instanceof Object);
         if (obj?.type === "subscribe") {
             assert(check.like(obj, { type: "subscribe", channel: "string" }));
-            subscribe(obj);
+            subscribe(socket, obj);
         } else if (obj?.type === "unsubscribe") {
             assert(check.like(obj, { type: "unsubscribe", channel: "string" }));
-            unsubscribe(obj);
+            unsubscribe(socket, obj);
         }
         // socket.send(Date.now());
         // setTimeout(function timeout() {
