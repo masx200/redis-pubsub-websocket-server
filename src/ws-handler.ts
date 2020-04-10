@@ -9,6 +9,7 @@ const handle_ws = async (socket: ws) => {
         console.log("websocket error", error);
     });
     socket.on("message", async (message) => {
+        console.log("websocket received: ", message);
         try {
             await on_message(String(message), socket);
         } catch (error) {
@@ -22,7 +23,10 @@ const handle_ws = async (socket: ws) => {
             let response = JSON.stringify({ msg: reason, type: "error" });
            if( socket.readyState === ws.OPEN){
             socket.send(response);
-            socket.close(1008);}
+            socket.close(1008);
+                        
+                                     
+                                                 }
         }
     });
     socket.on("close", async (code, reason) => {
