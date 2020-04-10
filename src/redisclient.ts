@@ -13,7 +13,7 @@ redisclient.on("message", async function (channel, message) {
         
     }
     const listeners = listensocketmap.get(channel);
-    const data = { type: "message", channel, message: objmsg };
+    const data = { type: "message", channel, msg: objmsg };
     listeners &&
         listeners.forEach((socket) => {
             socket.readyState === ws.OPEN
