@@ -1,4 +1,5 @@
 const port = 2000;
+const host = "localhost";
 import express from "express";
 import helmet from "helmet";
 import http from "http";
@@ -17,7 +18,7 @@ const server = http.createServer(app);
 const wsserver = new ws.Server({ server, path: "/websocket" });
 
 wsserver.on("connection", handle_ws);
-server.listen({ host: "localhost", port: port }, () =>
-    console.log("listening " + port)
+server.listen({ host: host, port: port }, () =>
+    console.log("listening " + host, port)
 );
 process.on("unhandledRejection", console.error);
