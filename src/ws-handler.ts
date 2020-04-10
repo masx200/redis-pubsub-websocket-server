@@ -1,16 +1,11 @@
 import check from "check-types";
 import ws from "ws";
-import { subscribe, unsubscribe } from "./sub";
+import { subscribe } from "./subscribe";
+import { unsubscribe } from "./unsubscribe";
 import assert from "assert";
 const handle_ws = async (socket: ws) => {
-    // console.log(socket);
-
     socket.on("open", async () => {
-        console.log("websocket connected");
-        // socket.send("test");
-        // setTimeout(function timeout() {
-        //     socket.send(Date.now());
-        // }, 500);
+        console.log(socket);
     });
     socket.on("error", async (error) => {
         console.log("websocket error", error);
@@ -29,10 +24,6 @@ const handle_ws = async (socket: ws) => {
             assert(check.like(obj, { type: "unsubscribe", channel: "string" }));
             unsubscribe(socket, obj);
         }
-        // socket.send(Date.now());
-        // setTimeout(function timeout() {
-        //     socket.send(Date.now());
-        // }, 500);
     });
     socket.on("close", async (code, reason) => {
         console.log("websocket closed", code, reason);
