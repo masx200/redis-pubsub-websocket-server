@@ -20,7 +20,7 @@ const handle_ws = async (socket: ws) => {
             /* reason 可选
 一个人类可读的字符串，它解释了连接关闭的原因。这个UTF-8编码的字符串不能超过123个字节。 */
             let reason = String(error).split("\n").join("");
-            let response = JSON.stringify({ msg: reason, type: "error" });
+            let response = JSON.stringify({ error: reason, type: "error" });
            if( socket.readyState === ws.OPEN){
             socket.send(response);
             socket.close(1008);
