@@ -4,7 +4,7 @@ import check from "check-types";
 import { subscribe } from "./subscribe";
 import { unsubscribe } from "./unsubscribe";
 export default async function on_message(message: string, socket: ws) {
-    console.log("websocket received: ", message);
+    //console.log("websocket received: ", message);
     const obj = JSON.parse(String(message));
     assert(typeof obj == "object");
     assert(!Array.isArray(obj));
