@@ -9,6 +9,9 @@ const channels = ["test", "event-127.0.0.1-5000"];
 function subscribe(channel: string) {
     socket.send(JSON.stringify({ type: "subscribe", channel }));
 }
+function unsubscribe(channel: string) {
+    socket.send(JSON.stringify({ type: "unsubscribe", channel }));
+}
 socket.addEventListener("open", (e) => {
     channels.forEach((channel) => {
         subscribe(channel);
@@ -23,3 +26,5 @@ Reflect.set(window, "socket", socket);
 
 Reflect.set(window, "channels", channels);
 console.log(socket);
+Reflect.set(window, "subscribe", subscribe);
+Reflect.set(window, "unsubscribe", unsubscribe);
