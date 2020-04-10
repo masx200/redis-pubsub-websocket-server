@@ -1,6 +1,7 @@
 import ws from "ws";
 import { listensocketmap } from "./listensocketmap";
-export function removesocketlistener(name: string, socket: ws) {
+
+export async function removesocketlistener(name: string, socket: ws) {
     const haschannel = listensocketmap.get(name);
 
     const listeners =
@@ -12,5 +13,7 @@ export function removesocketlistener(name: string, socket: ws) {
         })();
 
     listeners.delete(socket);
+    // 当所有监听者都删除后redis应该取消订阅
+  
     console.log(listensocketmap);
 }

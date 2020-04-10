@@ -1,6 +1,6 @@
 import ws from "ws";
 import { listensocketmap } from "./listensocketmap";
-export function addsocketlistener(name: string, socket: ws) {
+export async function addsocketlistener(name: string, socket: ws) {
     const haschannel = listensocketmap.get(name);
 
     const listeners =

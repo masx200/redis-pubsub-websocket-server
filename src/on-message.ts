@@ -17,5 +17,12 @@ export default async function on_message(message: string, socket: ws) {
         assert(check.like(obj, { type: "unsubscribe", channel: "string" }));
         let channel = Reflect.get(obj, "channel");
         await unsubscribe(socket, channel);
+    } else {
+        throw TypeError(
+            "invalid message type:" +
+                "expected type to be subscribe or unsubscribe," +
+                "but:" +
+                String(message)
+        );
     }
 }
