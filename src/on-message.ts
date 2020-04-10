@@ -20,7 +20,7 @@ export default async function on_message(message: string, socket: ws) {
     } else {
         throw TypeError(
             "invalid message type:" +
-                "expected type to be subscribe or unsubscribe," +
+                "expected 'type' to be 'subscribe' or 'unsubscribe'," +
                 "but:" +
                 String(message)
         );
