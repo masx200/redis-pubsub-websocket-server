@@ -1,5 +1,6 @@
 import ws from "ws";
 import on_message from "./on-message";
+import on_close from "./on-close";
 const handle_ws = async (socket: ws) => {
     socket.on("open", async () => {
         console.log("websocket connected");
@@ -18,13 +19,14 @@ const handle_ws = async (socket: ws) => {
             /* reason 可选
 一个人类可读的字符串，它解释了连接关闭的原因。这个UTF-8编码的字符串不能超过123个字节。 */
             let reason = String(error).split("\n").join("");
-            let response = JSON.stringify({ msg: reason, code: 1 });
+            let response = JSON.stringify({ msg: reason, type: "error" });
             socket.send(response);
             socket.close(1008);
         }
     });
     socket.on("close", async (code, reason) => {
         console.log("websocket closed", code, reason);
+        await on_close(socket);
     });
     socket.emit("open");
 };

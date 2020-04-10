@@ -7,7 +7,8 @@
     "scripts": {
         "prettier": "prettier --write  **/*.ts **/*.json **/*.md",
         "start": "node dist/index.cjs",
-        "build": "rollup -c"
+        "build": "rollup -c",
+        "restart": "pm2 restart pm2.config.json"
     },
     "repository": "https://gitee.com/masx200/redis-over-websocket-server",
     "keywords": [],
