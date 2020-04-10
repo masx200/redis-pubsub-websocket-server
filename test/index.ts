@@ -5,8 +5,14 @@ const socket = createws({
     path: "/websocket",
     protocol: "ws:",
 });
+const channels = ["test", "event-127.0.0.1-5000"];
+function subscribe(channel: string) {
+    socket.send(JSON.stringify({ type: "subscribe", channel }));
+}
 socket.addEventListener("open", (e) => {
-    socket.send(JSON.stringify({ type: "subscribe", channel: "test" }));
+    channels.forEach((channel) => {
+        subscribe(channel);
+    });
 });
 
 socket.addEventListener("message", (e) => {
@@ -14,4 +20,6 @@ socket.addEventListener("message", (e) => {
 });
 
 Reflect.set(window, "socket", socket);
+
+Reflect.set(window, "channels", channels);
 console.log(socket);
