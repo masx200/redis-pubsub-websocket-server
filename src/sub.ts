@@ -1,5 +1,6 @@
 import ioredis from "ioredis";
-const redis = new ioredis({ port: 6379, host: "localhost" });
+const redisclient = new ioredis({ port: 6379, host: "localhost" });
+redisclient.ping().then(console.log);
 export async function subscribe(obj: any) {
     console.log(obj);
 }

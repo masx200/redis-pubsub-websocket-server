@@ -1,7 +1,7 @@
 import ws from "ws";
 import { subscribe, unsubscribe } from "./sub";
 import assert from "assert";
-const handle_ws = (socket: ws): void => {
+const handle_ws = async (socket: ws) => {
     // console.log(socket);
 
     socket.on("open", async () => {
