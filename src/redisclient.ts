@@ -5,7 +5,7 @@ export const redisclient = new ioredis({ port: 6379, host: "localhost" });
 console.log(redisclient);
 redisclient.ping().then((pong) => console.log("ping", pong));
 redisclient.on("message", async function (channel, message) {
-    console.log("Receive message %s from channel %s", message, channel);
+    console.log("Receive message: %s from channel: %s", message, channel);
     let objmsg = message;
     try {
         objmsg = JSON.parse(message);
