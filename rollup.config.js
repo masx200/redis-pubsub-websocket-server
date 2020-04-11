@@ -75,7 +75,7 @@ export default [
             {
                 format: "iife",
 
-                file: "./dist/test.js",
+                file: "./test/dist/index.js",
 
                 sourcemap: false,
             },
