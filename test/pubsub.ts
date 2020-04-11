@@ -24,6 +24,9 @@ function createpubsub(
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
     function send(data: any) {
+        if (!(socket.readyState === socket.OPEN)) {
+            throw Error("The connection is not currently OPEN.");
+        }
         if (!data) {
             throw new TypeError("falsy data");
         }
@@ -68,7 +71,9 @@ function createpubsub(
     });
 
     socket.addEventListener("message", (e) => {
-        console.log(JSON.parse(e.data));
+        try {
+            console.log(JSON.parse(e.data));
+        } catch (error) {}
     });
 
     const pubsub = {
