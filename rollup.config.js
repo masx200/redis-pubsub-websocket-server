@@ -5,6 +5,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
 const beautifyterserplugin = terser({
+    sourcemap: true,
     compress: false,
     mangle: false,
     output: {
@@ -57,7 +58,7 @@ export default [
 
                 file: "./dist/index.cjs",
 
-                sourcemap: false,
+                sourcemap: true,
             },
         ],
         plugins: [
@@ -77,7 +78,7 @@ export default [
 
                 file: "./test/dist/index.js",
 
-                sourcemap: false,
+                sourcemap: true,
             },
         ],
         plugins: [
@@ -85,7 +86,7 @@ export default [
             json(),
             resolve({ preferBuiltins: true }),
             commonjs(),
-            typescript({ sourceMap: false }),
+            typescript({ sourceMap: true }),
         ],
     },
 ];
