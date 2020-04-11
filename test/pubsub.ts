@@ -53,12 +53,16 @@ class createpubsub extends EventTarget {
         function subscribe(channel: string) {
             checkchannel(channel);
             channelset.add(channel);
-            send(JSON.stringify({ type: "subscribe", channel }));
+
+                        if ((socket.readyState === socket.OPEN)) {
+            send(JSON.stringify({ type: "subscribe", channel }));}
         }
         function unsubscribe(channel: string) {
             checkchannel(channel);
             channelset.delete(channel);
-            send(JSON.stringify({ type: "unsubscribe", channel }));
+
+                        if ((socket.readyState === socket.OPEN)) {
+            send(JSON.stringify({ type: "unsubscribe", channel }));}
         }
         socket.addEventListener("open", (e) => {
             console.log("open");
