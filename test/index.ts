@@ -15,4 +15,6 @@ const puber = createpubsub({
     channels: ["broadcast"],
 });
 console.log(puber);
-console.log(createpubsub({ url: "ws://localhost:2000/websocket" }));
+const pubsub = createpubsub({ url: "ws://localhost:2000/websocket" });
+console.log(pubsub);
+[suber, puber, pubsub].forEach((a) => a.subscribe("broadcast"));
