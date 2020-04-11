@@ -1,8 +1,8 @@
-import { redisclient } from "./redis-client";
+import redis_client_pub from "./redis-client-publisher";
 
 export async function publish(channel: string, message: any) {
     const msg = typeof message === "string" ? message : JSON.stringify(message);
-    await redisclient.publish(channel, msg).then(() => {
+    await redis_client_pub.publish(channel, msg).then(() => {
         console.log("redis publish", channel, message);
     });
 }

@@ -1,5 +1,5 @@
 import createpubsub from "./pubsub";
-const ps = createpubsub({
+const suber = createpubsub({
     port: 2000,
     host: "localhost",
     path: "/websocket",
@@ -7,4 +7,6 @@ const ps = createpubsub({
     channels: ["test", "event-127.0.0.1-5000"],
 });
 console.log(createpubsub);
-console.log(ps);
+console.log(suber);
+const puber = createpubsub({ channels: ["broadcast"] });
+console.log(puber);

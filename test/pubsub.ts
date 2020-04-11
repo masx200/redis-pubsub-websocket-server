@@ -23,10 +23,16 @@ function createpubsub(
     });
     const channelset = new Set(channels);
     function subscribe(channel: string) {
+        if (!(typeof channel === "string")) {
+            throw new TypeError("channel expected to be string");
+        }
         channelset.add(channel);
         socket.send(JSON.stringify({ type: "subscribe", channel }));
     }
     function unsubscribe(channel: string) {
+        if (!(typeof channel === "string")) {
+            throw new TypeError("channel expected to be string");
+        }
         channelset.delete(channel);
         socket.send(JSON.stringify({ type: "unsubscribe", channel }));
     }
@@ -61,6 +67,9 @@ function createpubsub(
         socket.reconnect(code, reason);
     }
     function publish(channel: string, message: any) {
+        if (!(typeof channel === "string")) {
+            throw new TypeError("channel expected to be string");
+        }
         send({ type: "publish", channel, message });
     }
     return {

@@ -1,10 +1,12 @@
 import ws from "ws";
 import ioredis from "ioredis";
 import { listensocketmap } from "./listen-socket-map";
-export const redisclient = new ioredis({ port: 6379, host: "localhost" });
-console.log(redisclient);
-redisclient.ping().then((pong) => console.log("ping", pong));
-redisclient.on("message", async function (channel, message) {
+
+const redis_client = new ioredis({ port: 6379, host: "localhost" });
+console.log("subscriber", redis_client);
+redis_client.ping().then((pong) => console.log("ping", pong));
+
+redis_client.on("message", async function (channel, message) {
     console.log("Receive message: %s from channel: %s", message, channel);
     let objmsg = message;
     try {
@@ -19,3 +21,4 @@ redisclient.on("message", async function (channel, message) {
                 : listeners.delete(socket);
         });
 });
+export default redis_client;
