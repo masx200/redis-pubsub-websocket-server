@@ -12,7 +12,7 @@
         "allowSyntheticDefaultImports": true,
         "alwaysStrict": true,
         "noImplicitThis": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "moduleResolution": "node",
         "pretty": true,
         "resolveJsonModule": true,
