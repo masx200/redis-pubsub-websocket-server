@@ -25,7 +25,7 @@ function createpubsub(
     const close = socket.close.bind(socket);
     function send(data: any) {
         if (!data) {
-            throw new TypeError();
+            throw new TypeError("falsy data");
         }
         const msg = typeof data === "string" ? data : JSON.stringify(data);
         socket.send(msg);
@@ -34,7 +34,7 @@ function createpubsub(
     function publish(channel: string, message: any) {
         checkchannel(channel);
         if (!message) {
-            throw new TypeError();
+            throw new TypeError("falsy message");
         }
 
         send({ type: "publish", channel, message });
@@ -105,7 +105,7 @@ function createpubsub(
     instance.addEventListener = instance.addEventListener.bind(instance);
     instance.removeEventListener = instance.removeEventListener.bind(instance);
     instance.dispatchEvent = instance.dispatchEvent.bind(instance);
-    
+
     return instance;
 }
 
