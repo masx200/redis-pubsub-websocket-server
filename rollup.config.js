@@ -66,7 +66,7 @@ export default [
             json(),
             resolve({ preferBuiltins: true }),
             commonjs(),
-            typescript({ sourceMap: false }),
+            typescript({ sourceMap: true }),
         ],
     },
     {
