@@ -7,7 +7,7 @@ export async function unsubscribe(
 
     channel: string
 ) {
-    console.log("unsubscribe", channel);
+    // console.log("unsubscribe", channel);
     await removesocketlistener(channel, socket);
     const listeners = listensocketmap.get(channel);
     if (listeners && listeners.size === 0) {
