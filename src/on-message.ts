@@ -3,7 +3,7 @@ import assert from "assert";
 import check from "check-types";
 import { subscribe } from "./subscribe";
 import { unsubscribe } from "./unsubscribe";
-import { publish } from './publish';
+import { publish } from "./publish";
 export default async function on_message(message: string, socket: ws) {
     //console.log("websocket received: ", message);
     const obj = JSON.parse(String(message));
@@ -23,7 +23,7 @@ export default async function on_message(message: string, socket: ws) {
         assert(Reflect.has(obj, "message"));
         const channel = Reflect.get(obj, "channel");
         const message = Reflect.get(obj, "message");
-        await publish( channel, message);
+        await publish(channel, message);
     } else {
         throw TypeError(
             "invalid message type:" +
