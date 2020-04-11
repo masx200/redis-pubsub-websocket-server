@@ -18,7 +18,7 @@ class createpubsub extends EventTarget {
         } = {}
     ) {
         super();
-        
+
         const instance = this;
         const { url, channels, port, host, path, protocol } = opt;
         const socket = createwebsocket({ url, port, host, path, protocol });
@@ -50,15 +50,17 @@ class createpubsub extends EventTarget {
             checkchannel(channel);
             channelset.add(channel);
 
-                        if ((socket.readyState === socket.OPEN)) {
-            send(JSON.stringify({ type: "subscribe", channel }));}
+            if (socket.readyState === socket.OPEN) {
+                send(JSON.stringify({ type: "subscribe", channel }));
+            }
         }
         function unsubscribe(channel: string) {
             checkchannel(channel);
             channelset.delete(channel);
 
-                        if ((socket.readyState === socket.OPEN)) {
-            send(JSON.stringify({ type: "unsubscribe", channel }));}
+            if (socket.readyState === socket.OPEN) {
+                send(JSON.stringify({ type: "unsubscribe", channel }));
+            }
         }
         socket.addEventListener("open", (e) => {
             console.log("open");
@@ -136,51 +138,33 @@ class createpubsub extends EventTarget {
             instance
         );
         instance.dispatchEvent = instance.dispatchEvent.bind(instance);
-     
     }
     readonly url!: string;
     publish!: (channel: string, message: any) => void;
     readonly readyState!: number;
-    reconnect!: (code?: number | undefined, reason?: string | undefined) => void;
+    reconnect!: (
+        code?: number | undefined,
+        reason?: string | undefined
+    ) => void;
     send!: (data: any) => void;
     close!: (code?: number | undefined, reason?: string | undefined) => void;
     subscribe!: (channel: string) => void;
     unsubscribe!: (channel: string) => void;
     readonly channels!: Set<string>;
- readonly   [Symbol.toStringTag]: string;
+    readonly [Symbol.toStringTag]: string;
 }
-const pubsub=new Proxy(createpubsub,{
-
-apply(target,thisarg,arguments){
-
-return Reflect.construct(createpubsub,arguments)
-
-},
-
-construct(target,arguments){
-return Reflect.construct(createpubsub,arguments)
-}
-
-}) as {
-
-new(opt?: {
-            url?: URL | string;
-            port?: number | undefined;
-            host?: string | undefined;
-            path?: string | undefined;
-            protocol?: "ws:" | "wss:" | undefined;
-            channels?: string[] | undefined | Set<string>;
-        } ):PublishSubscribeClient
-(opt?: {
-            url?: URL | string;
-            port?: number | undefined;
-            host?: string | undefined;
-            path?: string | undefined;
-            protocol?: "ws:" | "wss:" | undefined;
-            channels?: string[] | undefined | Set<string>;
-        } ):PublishSubscribeClient
+const pubsub = (opt?: {
+    url?: URL | string;
+    port?: number | undefined;
+    host?: string | undefined;
+    path?: string | undefined;
+    protocol?: "ws:" | "wss:" | undefined;
+    channels?: string[] | undefined | Set<string>;
+}): PublishSubscribeClient => {
+    return Reflect.construct(createpubsub, [opt]) as PublishSubscribeClient;
 };
-export default pubsub
+
+export default pubsub;
 export type PublishSubscribeClient = EventTarget & {
     readonly url: string;
     publish: (channel: string, message: any) => void;
@@ -191,5 +175,5 @@ export type PublishSubscribeClient = EventTarget & {
     subscribe: (channel: string) => void;
     unsubscribe: (channel: string) => void;
     readonly channels: Set<string>;
-  readonly  [Symbol.toStringTag]: string;
+    readonly [Symbol.toStringTag]: string;
 };

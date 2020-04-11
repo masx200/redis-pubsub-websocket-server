@@ -1,11 +1,14 @@
-declare function createpubsub(this: any, opt?: {
-    url?: URL | string;
-    port?: number | undefined;
-    host?: string | undefined;
-    path?: string | undefined;
-    protocol?: "ws:" | "wss:" | undefined;
-    channels?: string[] | undefined | Set<string>;
-}): EventTarget & {
+declare function createpubsub(
+    this: any,
+    opt?: {
+        url?: URL | string;
+        port?: number | undefined;
+        host?: string | undefined;
+        path?: string | undefined;
+        protocol?: "ws:" | "wss:" | undefined;
+        channels?: string[] | undefined | Set<string>;
+    }
+): EventTarget & {
     readonly url: string;
     publish: (channel: string, message: any) => void;
     readonly readyState: number;

@@ -1,5 +1,5 @@
 import pubsub from "./pubsub";
-const suber = new pubsub({
+const suber = pubsub({
     port: 2000,
     host: "localhost",
     path: "/websocket",
@@ -8,13 +8,13 @@ const suber = new pubsub({
 });
 console.log(pubsub);
 console.log(suber);
-const puber = new pubsub({
+const puber = pubsub({
     host: "localhost",
     port: 2000,
     path: "/websocket",
     channels: ["broadcast"],
 });
 console.log(puber);
-const pubsub = new pubsub({ url: "ws://localhost:2000/websocket" });
-console.log(pubsub);
-[suber, puber, pubsub].forEach((a) => a.channels.add("broadcast"));
+const client = pubsub({ url: "ws://localhost:2000/websocket" });
+console.log(client);
+[suber, puber, client].forEach((a) => a.channels.add("broadcast"));
