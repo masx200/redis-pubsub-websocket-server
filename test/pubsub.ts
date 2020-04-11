@@ -51,7 +51,7 @@ function createpubsub(
     socket.addEventListener("message", (e) => {
         console.log(JSON.parse(e.data));
     });
-    function send(data: string) {
+    function send(data: any) {
         socket.send(typeof data === "string" ? data : JSON.stringify(data));
     }
     function close(code?: number | undefined, reason?: string | undefined) {
@@ -60,7 +60,11 @@ function createpubsub(
     function reconnect(code?: number | undefined, reason?: string | undefined) {
         socket.reconnect(code, reason);
     }
+    function publish(channel: string, message: any) {
+        send({ type: "publish", channel, message });
+    }
     return {
+        publish,
         get readyState() {
             return socket.readyState;
         },
