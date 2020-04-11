@@ -73,7 +73,8 @@ function createpubsub(
 
     socket.addEventListener("message", (e) => {
         try {
-            console.log(JSON.parse(e.data));
+            const data = JSON.parse(e.data);
+            console.log(data);
         } catch (error) {}
     });
 
@@ -111,7 +112,7 @@ function createpubsub(
     instance.addEventListener = instance.addEventListener.bind(instance);
     instance.removeEventListener = instance.removeEventListener.bind(instance);
     instance.dispatchEvent = instance.dispatchEvent.bind(instance);
-
+    Object.freeze(instance);
     return instance;
 }
 
