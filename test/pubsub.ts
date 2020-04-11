@@ -24,12 +24,13 @@ function createpubsub(
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
     function send(data: any) {
+        if (!data) {
+            throw new TypeError("falsy data ");
+        }
         if (!(socket.readyState === socket.OPEN)) {
             throw Error("The connection is not currently OPEN.");
         }
-        if (!data) {
-            throw new TypeError("falsy data");
-        }
+
         const msg = typeof data === "string" ? data : JSON.stringify(data);
         socket.send(msg);
     }
