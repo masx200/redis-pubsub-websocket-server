@@ -8,5 +8,10 @@ const suber = createpubsub({
 });
 console.log(createpubsub);
 console.log(suber);
-const puber = createpubsub({ channels: ["broadcast"] });
+const puber = createpubsub({
+    host: "localhost",
+    port: 2000,
+    path: "/websocket",
+    channels: ["broadcast"],
+});
 console.log(puber);

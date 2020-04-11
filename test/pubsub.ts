@@ -8,6 +8,7 @@ function checkchannel(channel: string) {
 
 function createpubsub(
     opt: {
+        url?: URL | string;
         port?: number | undefined;
         host?: string | undefined;
         path?: string | undefined;
@@ -15,25 +16,29 @@ function createpubsub(
         channels?: string[] | undefined | Set<string>;
     } = {}
 ) {
-    const {
-        channels = [],
-        port = 2000,
-        host = "localhost",
-        path = "/websocket",
-        protocol = "ws:",
-    } = opt;
-    const socket = createwebsocket({
-        port,
-        host,
-        path,
-        protocol,
-    });
+    const { url, channels, port, host, path, protocol } = opt;
+    const socket = createwebsocket({ url, port, host, path, protocol });
     const target = new EventTarget();
 
-    const channelset = new Set(channels);
+    const channelset = new Set(channels ?? []);
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
+    function send(data: any) {
+        if (!data) {
+            throw new TypeError();
+        }
+        const msg = typeof data === "string" ? data : JSON.stringify(data);
+        socket.send(msg);
+    }
 
+    function publish(channel: string, message: any) {
+        checkchannel(channel);
+        if (!message) {
+            throw new TypeError();
+        }
+
+        send({ type: "publish", channel, message });
+    }
     function subscribe(channel: string) {
         checkchannel(channel);
         channelset.add(channel);
@@ -65,22 +70,7 @@ function createpubsub(
     socket.addEventListener("message", (e) => {
         console.log(JSON.parse(e.data));
     });
-    function send(data: any) {
-        if (!data) {
-            throw new TypeError();
-        }
-        const msg = typeof data === "string" ? data : JSON.stringify(data);
-        socket.send(msg);
-    }
 
-    function publish(channel: string, message: any) {
-        checkchannel(channel);
-        if (!message) {
-            throw new TypeError();
-        }
-
-        send({ type: "publish", channel, message });
-    }
     const pubsub = {
         get url() {
             return socket.url;
@@ -112,7 +102,10 @@ function createpubsub(
             return socket.readyState;
         },
     });
-
+    instance.addEventListener = instance.addEventListener.bind(instance);
+    instance.removeEventListener = instance.removeEventListener.bind(instance);
+    instance.dispatchEvent = instance.dispatchEvent.bind(instance);
+    
     return instance;
 }
 
