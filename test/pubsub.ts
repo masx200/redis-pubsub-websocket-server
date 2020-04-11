@@ -6,14 +6,17 @@ function checkchannel(channel: string) {
     }
 }
 function definefreeze(instance: object) {
-    Reflect.ownKeys(instance).forEach((key) => {
-        const desc = Object.getOwnPropertyDescriptor(instance, key);
-        Object.defineProperty(instance, key, {
-            ...desc,
-            configurable: false,
-            writable: false,
-        });
-    });
+    Object.entries(Object.getOwnPropertyDescriptors(instance)).forEach(
+        ([key, olddesc]) => {
+            const shouldwrite = Reflect.has(olddesc, "writeable");
+            const descripter = {
+                ...olddesc,
+                configurable: false,
+            };
+            shouldwrite && (descripter.writable = false);
+            Object.defineProperty(instance, key, descripter);
+        }
+    );
 }
 class createpubsub extends EventTarget {
     constructor(
