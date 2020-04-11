@@ -22,6 +22,12 @@ function createpubsub(
         protocol,
     });
     const channelset = new Set(channels);
+    const reconnect = socket.reconnect.bind(socket);
+    const close = socket.close.bind(socket);
+    const addEventListener = socket.addEventListener.bind(socket);
+    const removeEventListener = socket.removeEventListener.bind(socket);
+    const dispatchEvent = socket.dispatchEvent.bind(socket);
+
     function subscribe(channel: string) {
         if (!(typeof channel === "string")) {
             throw new TypeError("channel expected to be string");
@@ -60,12 +66,8 @@ function createpubsub(
     function send(data: any) {
         socket.send(typeof data === "string" ? data : JSON.stringify(data));
     }
-    function close(code?: number | undefined, reason?: string | undefined) {
-        socket.close(code, reason);
-    }
-    function reconnect(code?: number | undefined, reason?: string | undefined) {
-        socket.reconnect(code, reason);
-    }
+
+    
     function publish(channel: string, message: any) {
         if (!(typeof channel === "string")) {
             throw new TypeError("channel expected to be string");
@@ -73,6 +75,11 @@ function createpubsub(
         send({ type: "publish", channel, message });
     }
     return {
+        get url() {
+            return socket.url;
+        },
+        addEventListener,
+        removeEventListener,
         publish,
         get readyState() {
             return socket.readyState;
@@ -83,10 +90,11 @@ function createpubsub(
         close,
         subscribe,
         unsubscribe,
+        dispatchEvent,
         get channels() {
             return Object.freeze(Array.from(channelset));
         },
-        [Symbol.toStringTag]: "PublishSubscribe",
+        [Symbol.toStringTag]: "PublishSubscribeClient",
     };
 }
 
