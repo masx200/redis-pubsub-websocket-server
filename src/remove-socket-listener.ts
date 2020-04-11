@@ -1,5 +1,5 @@
 import ws from "ws";
-import { listensocketmap } from "./listensocketmap";
+import { listensocketmap } from "./listen-socket-map";
 
 export async function removesocketlistener(channel: string, socket: ws) {
     const haschannel = listensocketmap.get(channel);

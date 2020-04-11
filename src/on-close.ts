@@ -1,6 +1,6 @@
 import ws from "ws";
-import { listensocketmap } from "./listensocketmap";
-import { redisclient } from "./redisclient";
+import { listensocketmap } from "./listen-socket-map";
+import { redisclient } from "./redis-client";
 export default async function on_close(socket: ws) {
     const listenersets = Array.from(listensocketmap.values());
     listenersets.forEach((socketset) => {

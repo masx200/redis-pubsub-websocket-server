@@ -1,6 +1,6 @@
 import ws from "ws";
 import ioredis from "ioredis";
-import { listensocketmap } from "./listensocketmap";
+import { listensocketmap } from "./listen-socket-map";
 export const redisclient = new ioredis({ port: 6379, host: "localhost" });
 console.log(redisclient);
 redisclient.ping().then((pong) => console.log("ping", pong));

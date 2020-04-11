@@ -1,7 +1,7 @@
-import { redisclient } from "./redisclient";
+import { redisclient } from "./redis-client";
 import ws from "ws";
 import { removesocketlistener } from "./remove-socket-listener";
-import { listensocketmap } from "./listensocketmap";
+import { listensocketmap } from "./listen-socket-map";
 export async function unsubscribe(
     socket: ws,
 
