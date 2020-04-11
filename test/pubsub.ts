@@ -24,9 +24,9 @@ function createpubsub(
     const channelset = new Set(channels);
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
-    const addEventListener = socket.addEventListener.bind(socket);
-    const removeEventListener = socket.removeEventListener.bind(socket);
-    const dispatchEvent = socket.dispatchEvent.bind(socket);
+  //  const addEventListener = socket.addEventListener.bind(socket);
+ //   const removeEventListener = socket.removeEventListener.bind(socket);
+ //   const dispatchEvent = socket.dispatchEvent.bind(socket);
 
     function subscribe(channel: string) {
         if (!(typeof channel === "string")) {
@@ -74,12 +74,12 @@ function createpubsub(
         }
         send({ type: "publish", channel, message });
     }
-    return {
-        get url() {
+    const pubsub= {
+       get url() {
             return socket.url;
         },
-        addEventListener,
-        removeEventListener,
+      //  addEventListener,
+     //   removeEventListener,
         publish,
         get readyState() {
             return socket.readyState;
@@ -90,12 +90,15 @@ function createpubsub(
         close,
         subscribe,
         unsubscribe,
-        dispatchEvent,
+      //  dispatchEvent,
         get channels() {
             return Object.freeze(Array.from(channelset));
         },
         [Symbol.toStringTag]: "PublishSubscribeClient",
     };
+        const target=new EventTarget
+
+            return Object.assign(target,pubsub) 
 }
 
 export default createpubsub;
