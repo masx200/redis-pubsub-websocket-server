@@ -1,0 +1,1 @@
+pm2 reload pm2.config.json
