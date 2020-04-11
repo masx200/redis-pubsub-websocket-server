@@ -77,6 +77,7 @@ function createpubsub(
         get channels() {
             return Object.freeze(Array.from(channelset));
         },
+        [Symbol.toStringTag]: "PublishSubscribe",
     };
 }
 
