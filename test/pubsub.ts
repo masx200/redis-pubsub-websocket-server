@@ -5,137 +5,153 @@ function checkchannel(channel: string) {
         throw new TypeError("channel expected to be string");
     }
 }
-createpubsub.prototype = Object.create(EventTarget.prototype);
-function createpubsub(
-    this: any,
-    opt: {
-        url?: URL | string;
-        port?: number | undefined;
-        host?: string | undefined;
-        path?: string | undefined;
-        protocol?: "ws:" | "wss:" | undefined;
-        channels?: string[] | undefined | Set<string>;
-    } = {}
-): PublishSubscribeClient {
-    if (!(this instanceof createpubsub)) {
-        return Reflect.construct(createpubsub, [opt]) as PublishSubscribeClient;
-    }
-    const instance = this;
-    const { url, channels, port, host, path, protocol } = opt;
-    const socket = createwebsocket({ url, port, host, path, protocol });
-    // const target = new EventTarget();
 
-    const channelset = new Set(channels ?? []);
-    const reconnect = socket.reconnect.bind(socket);
-    const close = socket.close.bind(socket);
-    function send(data: any) {
-        if (!data) {
-            throw new TypeError("falsy data ");
+class createpubsub extends EventTarget {
+    constructor(
+        opt: {
+            url?: URL | string;
+            port?: number | undefined;
+            host?: string | undefined;
+            path?: string | undefined;
+            protocol?: "ws:" | "wss:" | undefined;
+            channels?: string[] | undefined | Set<string>;
+        } = {}
+    ) {
+        super();
+        if (!(this instanceof createpubsub)) {
+            return Reflect.construct(createpubsub, [
+                opt,
+            ]) as PublishSubscribeClient;
         }
-        if (!(socket.readyState === socket.OPEN)) {
-            throw Error("The connection is not currently OPEN.");
-        }
+        const instance = this;
+        const { url, channels, port, host, path, protocol } = opt;
+        const socket = createwebsocket({ url, port, host, path, protocol });
 
-        const msg = typeof data === "string" ? data : JSON.stringify(data);
-        socket.send(msg);
-    }
-
-    function publish(channel: string, message: any) {
-        checkchannel(channel);
-        if (!message) {
-            throw new TypeError("falsy message");
-        }
-
-        send({ type: "publish", channel, message });
-    }
-    function subscribe(channel: string) {
-        checkchannel(channel);
-        channelset.add(channel);
-        send(JSON.stringify({ type: "subscribe", channel }));
-    }
-    function unsubscribe(channel: string) {
-        checkchannel(channel);
-        channelset.delete(channel);
-        send(JSON.stringify({ type: "unsubscribe", channel }));
-    }
-    socket.addEventListener("open", (e) => {
-        console.log("open");
-        instance.dispatchEvent(new Event("open"));
-    });
-    socket.addEventListener("close", (e) => {
-        const { code, reason } = e;
-        console.log("close", code, reason);
-        const event = Object.assign(new Event("close"), { code, reason });
-        instance.dispatchEvent(event);
-    });
-    socket.addEventListener("error", (e) => {
-        console.log("error");
-        instance.dispatchEvent(new Event("error"));
-    });
-    socket.addEventListener("message", (e) => {
-        console.log("message", e.data);
-        const { data } = e;
-        const event = Object.assign(new Event("message"), { data });
-        instance.dispatchEvent(event);
-    });
-    socket.addEventListener("open", (e) => {
-        channelset.forEach((channel) => {
-            subscribe(channel);
-        });
-    });
-
-    socket.addEventListener("message", (e) => {
-        try {
-            const data = JSON.parse(e.data);
-
-            if (data && typeof data === "object") {
-                console.log(data);
-                const event = Object.assign(new Event("json"), { data });
-                instance.dispatchEvent(event);
+        const channelset = new Set(channels ?? []);
+        const reconnect = socket.reconnect.bind(socket);
+        const close = socket.close.bind(socket);
+        function send(data: any) {
+            if (!data) {
+                throw new TypeError("falsy data ");
             }
-        } catch (error) {}
-    });
+            if (!(socket.readyState === socket.OPEN)) {
+                throw Error("The connection is not currently OPEN.");
+            }
 
-    const pubsub = {
-        get url() {
-            return Reflect.get(socket, "_url");
-        },
+            const msg = typeof data === "string" ? data : JSON.stringify(data);
+            socket.send(msg);
+        }
 
-        publish,
-        get readyState() {
-            return socket.readyState;
-        },
-        reconnect,
-        send,
+        function publish(channel: string, message: any) {
+            checkchannel(channel);
+            if (!message) {
+                throw new TypeError("falsy message");
+            }
 
-        close,
-        subscribe,
-        unsubscribe,
+            send({ type: "publish", channel, message });
+        }
+        function subscribe(channel: string) {
+            checkchannel(channel);
+            channelset.add(channel);
+            send(JSON.stringify({ type: "subscribe", channel }));
+        }
+        function unsubscribe(channel: string) {
+            checkchannel(channel);
+            channelset.delete(channel);
+            send(JSON.stringify({ type: "unsubscribe", channel }));
+        }
+        socket.addEventListener("open", (e) => {
+            console.log("open");
+            instance.dispatchEvent(new Event("open"));
+        });
+        socket.addEventListener("close", (e) => {
+            const { code, reason } = e;
+            console.log("close", code, reason);
+            const event = Object.assign(new Event("close"), { code, reason });
+            instance.dispatchEvent(event);
+        });
+        socket.addEventListener("error", (e) => {
+            console.log("error");
+            instance.dispatchEvent(new Event("error"));
+        });
+        socket.addEventListener("message", (e) => {
+            console.log("message", e.data);
+            const { data } = e;
+            const event = Object.assign(new Event("message"), { data });
+            instance.dispatchEvent(event);
+        });
+        socket.addEventListener("open", (e) => {
+            channelset.forEach((channel) => {
+                subscribe(channel);
+            });
+        });
 
-        get channels() {
-            return channelset;
-        },
-    };
+        socket.addEventListener("message", (e) => {
+            try {
+                const data = JSON.parse(e.data);
 
-    Object.assign(instance, pubsub);
-    Object.defineProperty(instance, Symbol.toStringTag, {
-        enumerable: true,
-        value: "PublishSubscribeClient",
-    });
-    Object.defineProperty(instance, "readyState", {
-        enumerable: true,
+                if (data && typeof data === "object") {
+                    console.log(data);
+                    const event = Object.assign(new Event("json"), { data });
+                    instance.dispatchEvent(event);
+                }
+            } catch (error) {}
+        });
 
-        get() {
-            return socket.readyState;
-        },
-    });
-    instance.addEventListener = instance.addEventListener.bind(instance);
-    instance.removeEventListener = instance.removeEventListener.bind(instance);
-    instance.dispatchEvent = instance.dispatchEvent.bind(instance);
-    Object.freeze(instance);
-    Object.defineProperties(this, Object.getOwnPropertyDescriptors(instance));
+        const pubsub = {
+            get url() {
+                return Reflect.get(socket, "_url");
+            },
 
-    return this as PublishSubscribeClient;
+            publish,
+            get readyState() {
+                return socket.readyState;
+            },
+            reconnect,
+            send,
+
+            close,
+            subscribe,
+            unsubscribe,
+
+            get channels() {
+                return channelset;
+            },
+        };
+
+        Object.assign(instance, pubsub);
+        Object.defineProperty(instance, Symbol.toStringTag, {
+            enumerable: true,
+            value: "PublishSubscribeClient",
+        });
+        Object.defineProperty(instance, "readyState", {
+            enumerable: true,
+
+            get() {
+                return socket.readyState;
+            },
+        });
+        instance.addEventListener = instance.addEventListener.bind(instance);
+        instance.removeEventListener = instance.removeEventListener.bind(
+            instance
+        );
+        instance.dispatchEvent = instance.dispatchEvent.bind(instance);
+        Object.freeze(instance);
+        Object.defineProperties(
+            this,
+            Object.getOwnPropertyDescriptors(instance)
+        );
+    }
+    readonly url!: string;
+    publish!: (channel: string, message: any) => void;
+    readonly readyState!: number;
+    reconnect!: (code?: number | undefined, reason?: string | undefined) => void;
+    send!: (data: any) => void;
+    close!: (code?: number | undefined, reason?: string | undefined) => void;
+    subscribe!: (channel: string) => void;
+    unsubscribe!: (channel: string) => void;
+    readonly channels!: Set<string>;
+    [Symbol.toStringTag]: string;
 }
 
 export default createpubsub;
