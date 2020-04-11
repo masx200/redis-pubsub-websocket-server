@@ -44,6 +44,10 @@ yarn start
 
 ### 发布
 
+"channel": 频道
+
+"message" : 消息
+
 ```json
 {
     "type": "publish",
@@ -54,11 +58,15 @@ yarn start
 
 ### 订阅
 
+"channel": 频道
+
 ```json
 { "type": "subscribe", "channel": "test" }
 ```
 
 ### 退订
+
+"channel": 频道
 
 ```json
 { "type": "unsubscribe", "channel": "test" }
@@ -68,11 +76,19 @@ yarn start
 
 ## 消息
 
+"channel": 频道
+
+"message" : 消息
+
 ```json
 { "type": "message", "channel": "test", "message": "foo" }
 ```
 
 ## 报错
+
+"error":报错信息字符串
+
+"stack":报错的信息数组
 
 ```json
 {
