@@ -94,7 +94,7 @@ function createpubsub(
         unsubscribe,
       //  dispatchEvent,
         get channels() {
-            return Object.freeze(Array.from(channelset));
+            return ((channelset));
         },
         [Symbol.toStringTag]: "PublishSubscribeClient",
     };
