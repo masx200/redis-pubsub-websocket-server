@@ -58,7 +58,7 @@ export default [
 
                 file: "./dist/index.cjs",
 
-                sourcemap: true,
+                sourcemap: false,
             },
         ],
         plugins: [
@@ -66,7 +66,7 @@ export default [
             json(),
             resolve({ preferBuiltins: true }),
             commonjs(),
-            typescript({ sourceMap: true }),
+            typescript({ sourceMap: false }),
         ],
     },
     {
