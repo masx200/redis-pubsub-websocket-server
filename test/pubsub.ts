@@ -5,7 +5,16 @@ function checkchannel(channel: string) {
         throw new TypeError("channel expected to be string");
     }
 }
-
+function definefreeze(instance: object) {
+    Reflect.ownKeys(instance).forEach((key) => {
+        const desc = Object.getOwnPropertyDescriptor(instance, key);
+        Object.defineProperty(instance, key, {
+            ...desc,
+            configurable: false,
+            writable: false,
+        });
+    });
+}
 class createpubsub extends EventTarget {
     constructor(
         opt: {
@@ -138,6 +147,7 @@ class createpubsub extends EventTarget {
             instance
         );
         instance.dispatchEvent = instance.dispatchEvent.bind(instance);
+        definefreeze(instance);
     }
     readonly url!: string;
     publish!: (channel: string, message: any) => void;
