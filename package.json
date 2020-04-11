@@ -11,7 +11,7 @@
         "reload": "pm2 reload pm2.config.json",
         "stop": "pm2 stop all",
         "logs": "pm2 logs",
-        "test":"live-server test"
+        "test": "live-server test"
     },
     "repository": "https://gitee.com/masx200/redis-over-websocket-server",
     "keywords": [],

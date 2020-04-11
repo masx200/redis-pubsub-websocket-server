@@ -5,7 +5,7 @@ function createpubsub(
         host?: string | undefined;
         path?: string | undefined;
         protocol?: "ws:" | "wss:" | undefined;
-        channels?: string[] | undefined;
+        channels?: string[] | undefined | Set<string>;
     } = {}
 ) {
     const {
@@ -31,6 +31,18 @@ function createpubsub(
         socket.send(JSON.stringify({ type: "unsubscribe", channel }));
     }
     socket.addEventListener("open", (e) => {
+        console.log("open ", e.target);
+    });
+    socket.addEventListener("close", (e) => {
+        console.log("close ", e.target, e.code, e.reason);
+    });
+    socket.addEventListener("error", (e) => {
+        console.log("error", e.target);
+    });
+    socket.addEventListener("message", (e) => {
+        console.log("message", e.target, e.data);
+    });
+    socket.addEventListener("open", (e) => {
         channelset.forEach((channel) => {
             subscribe(channel);
         });
@@ -39,8 +51,26 @@ function createpubsub(
     socket.addEventListener("message", (e) => {
         console.log(JSON.parse(e.data));
     });
-
-    return { socket, subscribe, unsubscribe, channels: channelset };
+    function send(data: string) {
+        socket.send(typeof data === "string" ? data : JSON.stringify(data));
+    }
+    function close(code?: number | undefined, reason?: string | undefined) {
+        socket.close(code, reason);
+    }
+    function reconnect(code?: number | undefined, reason?: string | undefined) {
+        socket.reconnect(code, reason);
+    }
+    return {
+        reconnect,
+        send,
+        socket,
+        close,
+        subscribe,
+        unsubscribe,
+        get channels() {
+            return Object.freeze(Array.from(channelset));
+        },
+    };
 }
 
 export default createpubsub;

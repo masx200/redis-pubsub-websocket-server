@@ -19,20 +19,8 @@ function createwebsocket(
     url.port = String(port);
     url.host = host;
     url.pathname = path;
-    const ws = new ReconnectingWebSocket(url.href);
-    // console.log(ws);
-    ws.addEventListener("open", (e) => {
-        console.log(e);
-    });
-    ws.addEventListener("close", (e) => {
-        console.log(e);
-    });
-    ws.addEventListener("error", (e) => {
-        console.log(e);
-    });
-    ws.addEventListener("message", (e) => {
-        console.log(e);
-    });
-    return ws;
+    const socket = new ReconnectingWebSocket(url.href);
+
+    return socket;
 }
 export default createwebsocket;
