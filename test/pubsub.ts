@@ -98,7 +98,7 @@ function createpubsub(
 
     const pubsub = {
         get url() {
-            return socket.url;
+            return Reflect.get(socket, "_url");
         },
 
         publish,
@@ -115,11 +115,14 @@ function createpubsub(
         get channels() {
             return channelset;
         },
-        [Symbol.toStringTag]: "PublishSubscribeClient",
+        //   [Symbol.toStringTag]: "PublishSubscribeClient",
     };
 
     const instance = Object.assign(target, pubsub);
-
+    Object.defineProperty(instance, Symbol.toStringTag, {
+        enumerable: true,
+        value: "PublishSubscribeClient",
+    });
     Object.defineProperty(instance, "readyState", {
         enumerable: true,
 
