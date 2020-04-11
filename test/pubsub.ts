@@ -5,7 +5,7 @@ function checkchannel(channel: string) {
         throw new TypeError("channel expected to be string");
     }
 }
-createpubsub.prototype = EventTarget.prototype;
+createpubsub.prototype = Object.create(EventTarget.prototype);
 function createpubsub(
     this: any,
     opt: {
