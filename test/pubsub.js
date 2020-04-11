@@ -11,7 +11,9 @@ function createpubsub(opt = {}) {
     const { url, channels, port, host, path, protocol } = opt;
     const socket = createwebsocket({ url, port, host, path, protocol });
     const target = new EventTarget();
-    const channelset = new Set(channels !== null && channels !== void 0 ? channels : []);
+    const channelset = new Set(
+        channels !== null && channels !== void 0 ? channels : []
+    );
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
     function send(data) {
@@ -74,8 +76,7 @@ function createpubsub(opt = {}) {
                 const event = Object.assign(new Event("json"), { data });
                 target.dispatchEvent(event);
             }
-        }
-        catch (error) { }
+        } catch (error) {}
     });
     const pubsub = {
         get url() {
@@ -93,9 +94,13 @@ function createpubsub(opt = {}) {
         get channels() {
             return channelset;
         },
-        [Symbol.toStringTag]: "PublishSubscribeClient",
+        // [Symbol.toStringTag]: "PublishSubscribeClient",
     };
     const instance = Object.assign(target, pubsub);
+    Object.defineProperty(instance, Symbol.toStringTag, {
+        enumerable: true,
+        value: "PublishSubscribeClient",
+    });
     Object.defineProperty(instance, "readyState", {
         enumerable: true,
         get() {
