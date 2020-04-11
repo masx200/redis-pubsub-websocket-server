@@ -61,6 +61,9 @@ function createpubsub(
         socket.reconnect(code, reason);
     }
     return {
+        get readyState() {
+            return socket.readyState;
+        },
         reconnect,
         send,
         socket,
