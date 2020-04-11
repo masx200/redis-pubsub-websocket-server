@@ -21,6 +21,8 @@ function createpubsub(
         path,
         protocol,
     });
+    const target=new EventTarget
+
     const channelset = new Set(channels);
     const reconnect = socket.reconnect.bind(socket);
     const close = socket.close.bind(socket);
@@ -96,7 +98,7 @@ function createpubsub(
         },
         [Symbol.toStringTag]: "PublishSubscribeClient",
     };
-        const target=new EventTarget
+       // const target=new EventTarget
 
             return Object.assign(target,pubsub) 
 }
