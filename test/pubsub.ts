@@ -43,16 +43,16 @@ function createpubsub(
         socket.send(JSON.stringify({ type: "unsubscribe", channel }));
     }
     socket.addEventListener("open", (e) => {
-        console.log("open ", e.target);
+        console.log("open ",);
     });
     socket.addEventListener("close", (e) => {
-        console.log("close ", e.target, e.code, e.reason);
+        console.log("close ", e.code, e.reason);
     });
     socket.addEventListener("error", (e) => {
-        console.log("error", e.target);
+        console.log("error", );
     });
     socket.addEventListener("message", (e) => {
-        console.log("message", e.target, e.data);
+        console.log("message", e.data);
     });
     socket.addEventListener("open", (e) => {
         channelset.forEach((channel) => {
