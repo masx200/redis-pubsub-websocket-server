@@ -14,6 +14,6 @@ export async function removesocketlistener(channel: string, socket: ws) {
 
     listeners.delete(socket);
     // 当所有监听者都删除后redis应该取消订阅
-  
+
     console.log(listensocketmap);
 }
