@@ -34,10 +34,54 @@ yarn build
 yarn start
 ```
 
-# 服务路径
+# 服务路径 /websocket
 
-/websocket
+# 服务协议基于 websocket
 
-# 服务协议
+# 发布订阅的协议
 
-websocket
+## 客户端发送
+
+### 发布
+
+```json
+{
+    "type": "publish",
+    "channel": "test",
+    "message": "foo"
+}
+```
+
+### 订阅
+
+```json
+{ "type": "subscribe", "channel": "test" }
+```
+
+### 退订
+
+```json
+{ "type": "unsubscribe", "channel": "test" }
+```
+
+## 服务器发送
+
+## 消息
+
+```json
+{ "type": "message", "channel": "test", "message": "foo" }
+```
+
+## 报错
+
+```json
+{
+    "stack": [
+        "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:",
+        "assert(!Array.isArray(obj))",
+        "at on_message (D:\\Documents\\GitHub\\pubsub-websocket-server\\dist\\index.cjs:111:5)"
+    ],
+    "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:  assert(!Array.isArray(obj))",
+    "type": "error"
+}
+```
