@@ -5,19 +5,6 @@ function checkchannel(channel: string) {
         throw new TypeError("channel expected to be string");
     }
 }
-function definefreeze(instance: object) {
-    Object.entries(Object.getOwnPropertyDescriptors(instance)).forEach(
-        ([key, olddesc]) => {
-            const shouldwrite = Reflect.has(olddesc, "writable");
-            const descripter = {
-                ...olddesc,
-                configurable: false,
-            };
-            shouldwrite && (descripter.writable = false);
-            Object.defineProperty(instance, key, descripter);
-        }
-    );
-}
 class createpubsub extends EventTarget {
     constructor(
         opt: {
@@ -156,7 +143,6 @@ class createpubsub extends EventTarget {
             instance
         );
         instance.dispatchEvent = instance.dispatchEvent.bind(instance);
-        definefreeze(instance);
     }
     readonly url!: string;
     publish!: (channel: string, message: any) => void;
