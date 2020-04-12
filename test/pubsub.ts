@@ -3,30 +3,33 @@ import createwebsocket from "./createws";
 //function checkchannel(channel: string) {
 //    if (!(typeof channel === "string")) {
 //        throw new TypeError("channel expected to be string");
- //   }
+//   }
 //}
 class createpubsub extends EventTarget {
     constructor(
-        opt:string| {
-            url?: URL | string;
-            port?: number | undefined;
-            host?: string | undefined;
-            path?: string | undefined;
-            protocol?: "ws:" | "wss:" | undefined;
-            channels?: string[] | undefined | Set<string>;
-        } = {}
+        opt:
+            | string
+            | {
+                  url?: URL | string;
+                  port?: number | undefined;
+                  host?: string | undefined;
+                  path?: string | undefined;
+                  protocol?: "ws:" | "wss:" | undefined;
+                  channels?: string[] | undefined | Set<string>;
+              } = {}
     ) {
         super();
-function checkchannel(channel: string) {
-    if (!(typeof channel === "string")) {
-        throw new TypeError("channel expected to be string");
-    }
-}
+        function checkchannel(channel: string) {
+            if (!(typeof channel === "string")) {
+                throw new TypeError("channel expected to be string");
+            }
+        }
         const instance = this;
-        const { url, channels, port, host, path, protocol } = opt;
-        const socket = createwebsocket({ url, port, host, path, protocol });
+        const channels = typeof opt === "object" ? opt?.channels ?? [] : [];
 
-        const channelset = new Set(channels ?? []);
+        const socket = createwebsocket(opt);
+
+        const channelset = new Set<string>(channels);
         const reconnect = socket.reconnect.bind(socket);
         const close = socket.close.bind(socket);
         function send(data: any) {
@@ -96,7 +99,7 @@ function checkchannel(channel: string) {
                 subscribe(channel);
             });
         });
-const acceptedevents=["error","message"]
+        const acceptedevents = ["error", "message"];
         socket.addEventListener("message", (e) => {
             try {
                 const data = JSON.parse(e.data);
@@ -104,7 +107,7 @@ const acceptedevents=["error","message"]
                 if (data && typeof data === "object" && !Array.isArray(data)) {
                     console.log(data);
                     const { type } = data;
-                    if (!acceptedevents.includes(typr)) {
+                    if (!acceptedevents.includes(type)) {
                         throw TypeError("invalid event type");
                     }
                     const event = new Event(String(type));
@@ -170,21 +173,25 @@ const acceptedevents=["error","message"]
         code?: number | undefined,
         reason?: string | undefined
     ) => void;
-  //  send!: (data: any) => void;
+    //  send!: (data: any) => void;
     close!: (code?: number | undefined, reason?: string | undefined) => void;
     subscribe!: (channel: string) => void;
     unsubscribe!: (channel: string) => void;
     readonly channels!: Set<string>;
     readonly [Symbol.toStringTag]: string;
 }
-const pubsub = (opt?: {
-    url?: URL | string;
-    port?: number | undefined;
-    host?: string | undefined;
-    path?: string | undefined;
-    protocol?: "ws:" | "wss:" | undefined;
-    channels?: string[] | undefined | Set<string>;
-}): PublishSubscribeClient => {
+const pubsub = (
+    opt?:
+        | string
+        | {
+              url?: URL | string;
+              port?: number | undefined;
+              host?: string | undefined;
+              path?: string | undefined;
+              protocol?: "ws:" | "wss:" | undefined;
+              channels?: string[] | undefined | Set<string>;
+          }
+): PublishSubscribeClient => {
     return Reflect.construct(createpubsub, [opt]) as PublishSubscribeClient;
 };
 
@@ -194,7 +201,7 @@ export type PublishSubscribeClient = EventTarget & {
     publish: (channel: string, message: any) => void;
     readonly readyState: number;
     reconnect: (code?: number | undefined, reason?: string | undefined) => void;
-   // send: (data: any) => void;
+    // send: (data: any) => void;
     close: (code?: number | undefined, reason?: string | undefined) => void;
     subscribe: (channel: string) => void;
     unsubscribe: (channel: string) => void;
