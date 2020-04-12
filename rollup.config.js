@@ -71,12 +71,12 @@ export default [
     },
     {
         external: [],
-        input: "./test/index.ts",
+        input: "./test/pubsub.ts",
         output: [
             {
                 format: "iife",
 
-                file: "./test/dist/index.js",
+                file: "./test/dist/pubsub.js",
 
                 sourcemap: true,
             },
