@@ -7,7 +7,7 @@ import createwebsocket from "./createws";
 //}
 class createpubsub extends EventTarget {
     constructor(
-        opt: {
+        opt:string| {
             url?: URL | string;
             port?: number | undefined;
             host?: string | undefined;
