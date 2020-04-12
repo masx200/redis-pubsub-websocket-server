@@ -90,9 +90,9 @@ class createpubsub extends EventTarget {
         });
         socket.addEventListener("message", (e) => {
             console.log("message", e.data);
-            const { data } = e;
-            const event = Object.assign(new Event("message"), { data });
-            instance.dispatchEvent(event);
+          //  const { data } = e;
+            //const event = Object.assign(new Event("message"), { data });
+           // instance.dispatchEvent(event);
         });
         socket.addEventListener("open", (e) => {
             channelset.forEach((channel) => {
@@ -109,7 +109,14 @@ class createpubsub extends EventTarget {
                     const event = Object.assign(new Event("json"), { data });
                     instance.dispatchEvent(event);
                 }
-            } catch (error) {}
+            } catch (error) {
+                                
+                                                    
+                                                                            
+                                                                                                        
+                                                                                                                                         
+                                                                                                                                                     
+            }
         });
 
         const pubsub = {
