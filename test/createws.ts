@@ -1,6 +1,6 @@
 import ReconnectingWebSocket from "reconnecting-websocket";
 function createwebsocket(
-    opt: {
+    opt: string|{
         url?: URL | string;
         port?: number | undefined;
         host?: string | undefined;
