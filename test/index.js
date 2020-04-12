@@ -17,4 +17,11 @@ const puber = pubsub({
 console.log(puber);
 const client = pubsub({ url: "ws://localhost:2000/websocket" });
 console.log(client);
-[suber, puber, client].forEach((a) => a.channels.add("broadcast"));
+[suber, puber, client].forEach((a) => {
+    a.channels.add("broadcast");
+
+    a.addEventListener("error", console.log);
+    a.addEventListener("open", console.log);
+    a.addEventListener("close", console.log);
+    a.addEventListener("message", console.log);
+});
