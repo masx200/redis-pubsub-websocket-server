@@ -107,6 +107,9 @@ class createpubsub extends EventTarget {
                 if (data && typeof data === "object" && !Array.isArray(data)) {
                     console.log(data);
                     const { type } = data;
+                    if (!type) {
+                        throw TypeError("falsy event type");
+                    }
                     const event = Object.assign(new Event(String(type)), data);
                     instance.dispatchEvent(event);
                 } else {
