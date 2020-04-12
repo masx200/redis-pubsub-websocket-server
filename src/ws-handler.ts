@@ -25,13 +25,12 @@ const handle_ws = async (socket: ws) => {
 
             console.error(error);
             if (!(error instanceof Error)) {
-                socket.close(1008);
+                //   socket.close(1008);
                 return;
             }
             if (error instanceof Error) {
-                const res = handleerror(
-                    error
-                ); /* reason 可选
+                const res = handleerror(error);
+                /* reason 可选
 
 一个人类可读的字符串，它解释了连接关闭的原因。这个UTF-8编码的字符串不能超过123个字节。 */
 
