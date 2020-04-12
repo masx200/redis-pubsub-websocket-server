@@ -1,10 +1,10 @@
 import createwebsocket from "./createws";
 
-function checkchannel(channel: string) {
-    if (!(typeof channel === "string")) {
-        throw new TypeError("channel expected to be string");
-    }
-}
+//function checkchannel(channel: string) {
+//    if (!(typeof channel === "string")) {
+//        throw new TypeError("channel expected to be string");
+ //   }
+//}
 class createpubsub extends EventTarget {
     constructor(
         opt: {
@@ -17,7 +17,11 @@ class createpubsub extends EventTarget {
         } = {}
     ) {
         super();
-
+function checkchannel(channel: string) {
+    if (!(typeof channel === "string")) {
+        throw new TypeError("channel expected to be string");
+    }
+}
         const instance = this;
         const { url, channels, port, host, path, protocol } = opt;
         const socket = createwebsocket({ url, port, host, path, protocol });
