@@ -166,7 +166,7 @@ class createpubsub extends EventTarget {
         code?: number | undefined,
         reason?: string | undefined
     ) => void;
-    send!: (data: any) => void;
+  //  send!: (data: any) => void;
     close!: (code?: number | undefined, reason?: string | undefined) => void;
     subscribe!: (channel: string) => void;
     unsubscribe!: (channel: string) => void;
@@ -190,7 +190,7 @@ export type PublishSubscribeClient = EventTarget & {
     publish: (channel: string, message: any) => void;
     readonly readyState: number;
     reconnect: (code?: number | undefined, reason?: string | undefined) => void;
-    send: (data: any) => void;
+   // send: (data: any) => void;
     close: (code?: number | undefined, reason?: string | undefined) => void;
     subscribe: (channel: string) => void;
     unsubscribe: (channel: string) => void;
