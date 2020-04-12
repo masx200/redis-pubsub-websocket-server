@@ -90,9 +90,9 @@ class createpubsub extends EventTarget {
         });
         socket.addEventListener("message", (e) => {
             console.log("message", e.data);
-          //  const { data } = e;
+            //  const { data } = e;
             //const event = Object.assign(new Event("message"), { data });
-           // instance.dispatchEvent(event);
+            // instance.dispatchEvent(event);
         });
         socket.addEventListener("open", (e) => {
             channelset.forEach((channel) => {
@@ -104,18 +104,17 @@ class createpubsub extends EventTarget {
             try {
                 const data = JSON.parse(e.data);
 
-                if (data && typeof data === "object") {
+                if (data && typeof data === "object" && !Array.isArray(data)) {
                     console.log(data);
-                    const event = Object.assign(new Event("json"), { data });
+                    const { type } = data;
+                    const event = Object.assign(new Event(String(type)), data);
                     instance.dispatchEvent(event);
+                } else {
+                    throw new TypeError("invalid revceived data");
                 }
             } catch (error) {
-                                
-                                                    
-                                                                            
-                                                                                                        
-                                                                                                                                         
-                                                                                                                                                     
+                const event = Object.assign(new Event("error"), { error });
+                instance.dispatchEvent(event);
             }
         });
 
