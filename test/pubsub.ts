@@ -81,7 +81,7 @@ function checkchannel(channel: string) {
         });
         socket.addEventListener("error", (e) => {
             const { error, message } = e;
-            console.log("error", e.error, e.message);
+            console.log("error", error, message);
             const event = Object.assign(new Event("error"), { error, message });
             instance.dispatchEvent(event);
         });
@@ -96,7 +96,7 @@ function checkchannel(channel: string) {
                 subscribe(channel);
             });
         });
-
+const acceptedevents=["error","message"]
         socket.addEventListener("message", (e) => {
             try {
                 const data = JSON.parse(e.data);
@@ -104,8 +104,8 @@ function checkchannel(channel: string) {
                 if (data && typeof data === "object" && !Array.isArray(data)) {
                     console.log(data);
                     const { type } = data;
-                    if (!type) {
-                        throw TypeError("falsy event type");
+                    if (!acceptedevents.includes(typr)) {
+                        throw TypeError("invalid event type");
                     }
                     const event = new Event(String(type));
                     Object.entries(data).forEach(([key, value]) => {
