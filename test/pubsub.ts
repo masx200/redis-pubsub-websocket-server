@@ -180,7 +180,7 @@ class createpubsub extends EventTarget {
     readonly channels!: Set<string>;
     readonly [Symbol.toStringTag]: string;
 }
-const pubsub = (
+const pubsub = function (
     opt?:
         | string
         | {
@@ -191,7 +191,7 @@ const pubsub = (
               protocol?: "ws:" | "wss:" | undefined;
               channels?: string[] | undefined | Set<string>;
           }
-): PublishSubscribeClient => {
+): PublishSubscribeClient {
     return Reflect.construct(createpubsub, [opt]) as PublishSubscribeClient;
 };
 
