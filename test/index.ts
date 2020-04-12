@@ -1,4 +1,4 @@
-import pubsub from "./pubsub";
+import pubsub from "./dist/pubsub.js";
 const suber = pubsub({
     port: 2000,
     host: "localhost",
