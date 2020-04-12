@@ -103,7 +103,12 @@ class createpubsub extends EventTarget {
                     if (!type) {
                         throw TypeError("falsy event type");
                     }
-                    const event = Object.assign(new Event(String(type)), data);
+                    const event = new Event(String(type));
+                    Object.entries(data).forEach(([key, value]) => {
+                        try {
+                            Reflect.set(event, key, value);
+                        } catch (error) {}
+                    });
                     instance.dispatchEvent(event);
                 } else {
                     throw new TypeError("invalid revceived data");
@@ -128,7 +133,7 @@ class createpubsub extends EventTarget {
                 return socket.readyState;
             },
             reconnect,
-            send,
+            // send,
 
             close,
             subscribe,
