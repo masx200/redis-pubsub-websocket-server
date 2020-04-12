@@ -74,7 +74,7 @@ export default [
         input: "./test/pubsub.ts",
         output: [
             {
-                format: "iife",
+                format: "esm",
 
                 file: "./test/dist/pubsub.js",
 
