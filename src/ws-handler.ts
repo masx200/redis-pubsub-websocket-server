@@ -43,7 +43,7 @@ const handle_ws = async (socket: ws) => {
                 if (socket.readyState === ws.OPEN) {
                     socket.send(response);
 
-                    socket.close(1008);
+                    //socket.close(1008);
                     return;
                 }
             }
