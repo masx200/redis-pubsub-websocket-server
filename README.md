@@ -38,6 +38,11 @@ yarn start
 
 # 服务协议基于 websocket
 
+https://developer.mozilla.org/zh-CN/docs/Web/API/websocket
+
+
+https://github.com/pladaria/reconnecting-websocket
+
 # 发布订阅的协议
 
 ## 客户端发送
