@@ -66,14 +66,20 @@ class createpubsub extends EventTarget {
             instance.dispatchEvent(new Event("open"));
         });
         socket.addEventListener("close", (e) => {
-            const { code, reason } = e;
-            console.log("close", code, reason);
-            const event = Object.assign(new Event("close"), { code, reason });
+            const { code, reason, wasClean } = e;
+            console.log("close", code, reason, wasClean);
+            const event = Object.assign(new Event("close"), {
+                code,
+                reason,
+                wasClean,
+            });
             instance.dispatchEvent(event);
         });
         socket.addEventListener("error", (e) => {
-            console.log("error");
-            instance.dispatchEvent(new Event("error"));
+            const { error, message } = e;
+            console.log("error", e.error, e.message);
+            const event = Object.assign(new Event("error"), { error, message });
+            instance.dispatchEvent(event);
         });
         socket.addEventListener("message", (e) => {
             console.log("message", e.data);
