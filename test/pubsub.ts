@@ -142,18 +142,15 @@ class createpubsub extends EventTarget {
             },
         };
 
-        Object.assign(instance, pubsub);
+        Object.defineProperties(
+            instance,
+            Object.getOwnPropertyDescriptors(pubsub)
+        );
         Object.defineProperty(instance, Symbol.toStringTag, {
             enumerable: true,
             value: "PublishSubscribeClient",
         });
-        Object.defineProperty(instance, "readyState", {
-            enumerable: true,
 
-            get() {
-                return socket.readyState;
-            },
-        });
         instance.addEventListener = instance.addEventListener.bind(instance);
         instance.removeEventListener = instance.removeEventListener.bind(
             instance
