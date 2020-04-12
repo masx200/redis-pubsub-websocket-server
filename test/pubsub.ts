@@ -109,7 +109,11 @@ class createpubsub extends EventTarget {
                     throw new TypeError("invalid revceived data");
                 }
             } catch (error) {
-                const event = Object.assign(new Event("error"), { error });
+                const { message } = error;
+                const event = Object.assign(new Event("error"), {
+                    error,
+                    message,
+                });
                 instance.dispatchEvent(event);
             }
         });
