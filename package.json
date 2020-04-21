@@ -1,6 +1,6 @@
 {
     "type": "commonjs",
-    "name": "redis-over-websocket-server",
+    "name": "@masx200/redis-pubsub-websocket-server",
     "version": "1.0.0",
     "description": "基于 websocket 的 redis 发布订阅 协议服务器",
     "main": "dist/index.cjs",
