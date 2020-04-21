@@ -15,7 +15,7 @@
     },
     "repository": "https://gitee.com/masx200/redis-over-websocket-server",
     "keywords": [],
-    "author": "masx200 <masx200@qq.c60>",
+    "author": "masx200 <masx200@qq.com>",
     "license": "ISC",
     "dependencies": {
         "@rollup/plugin-commonjs": "^11.0.2",
