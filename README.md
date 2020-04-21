@@ -106,3 +106,14 @@ https://github.com/pladaria/reconnecting-websocket
     "type": "error"
 }
 ```
+
+
+
+
+# 测试
+
+```shell
+
+
+yarn test
+```
