@@ -14,6 +14,8 @@
 
 1.需要先安装 redis
 
+redis默认监听6379端口
+
 2.安装依赖
 
 ```powershell
