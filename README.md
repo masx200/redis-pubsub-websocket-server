@@ -16,7 +16,7 @@ https://github.com/masx200/redis-pubsub-websocket-server/blob/master/src/index.t
 
 客户端示例
 
-https://github.com/masx200/redis-pubsub-websocket-server/blob/master/test/index.ts
+https://github.com/masx200/redis-pubsub-websocket-server/blob/master/test/index.js
 
 #### 安装教程
 
