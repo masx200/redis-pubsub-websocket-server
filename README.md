@@ -10,6 +10,14 @@
 
 软件架构说明
 
+服务端示例
+
+https://github.com/masx200/redis-pubsub-websocket-server/blob/master/src/index.ts
+
+客户端示例
+
+https://github.com/masx200/redis-pubsub-websocket-server/blob/master/test/index.ts
+
 #### 安装教程
 
 1.需要先安装 redis
