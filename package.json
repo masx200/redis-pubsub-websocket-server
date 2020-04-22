@@ -18,13 +18,7 @@
     "author": "masx200 <masx200@qq.com>",
     "license": "ISC",
     "dependencies": {
-
-
-        "minimist":"1.2.5",
-
-
-
-        
+        "minimist": "1.2.5",
         "@rollup/plugin-commonjs": "^11.0.2",
         "@rollup/plugin-json": "^4.0.2",
         "@rollup/plugin-node-resolve": "^7.1.1",

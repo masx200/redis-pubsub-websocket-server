@@ -14,7 +14,7 @@
 
 1.需要先安装 redis
 
-redis默认监听6379端口
+redis 默认监听 6379 端口
 
 2.安装依赖
 
@@ -41,7 +41,6 @@ yarn start
 # 服务协议基于 websocket
 
 https://developer.mozilla.org/zh-CN/docs/Web/API/websocket
-
 
 https://github.com/pladaria/reconnecting-websocket
 
@@ -108,9 +107,6 @@ https://github.com/pladaria/reconnecting-websocket
     "type": "error"
 }
 ```
-
-
-
 
 # 测试
 
