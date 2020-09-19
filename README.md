@@ -118,6 +118,10 @@ https://github.com/pladaria/reconnecting-websocket
 
 # 测试
 
+
+```
+yarn start
+```
 ```shell
 
 
