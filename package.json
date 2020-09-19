@@ -13,7 +13,7 @@
         "logs": "pm2 logs",
         "test": "live-server test"
     },
-    "repository": "https://gitee.com/masx200/redis-over-websocket-server",
+    "repository": "https://github.com/masx200/redis-over-websocket-server",
     "keywords": [],
     "author": "masx200 <masx200@qq.com>",
     "license": "ISC",
